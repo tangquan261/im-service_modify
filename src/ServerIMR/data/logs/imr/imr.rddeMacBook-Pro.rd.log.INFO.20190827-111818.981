@@ -1,0 +1,18 @@
+Log file created at: 2019/08/27 11:18:18
+Running on machine: rddeMacBook-Pro
+Binary: Built with gc go1.12.9 for darwin/amd64
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0827 11:18:18.347783     981 route_server.go:217] listen::4444
+I0827 11:18:18.348325     981 route_server.go:219] redis address:127.0.0.1:6379 password: db:0
+I0827 11:18:18.348895     981 group_manager.go:318] reload group...
+I0827 11:18:18.350193     981 group_manager.go:388] group action id:0
+I0827 11:18:18.350624     981 group_manager.go:466] group_create: subscribe 1
+I0827 11:18:18.350635     981 group_manager.go:466] group_disband: subscribe 2
+I0827 11:18:18.350640     981 group_manager.go:466] group_member_add: subscribe 3
+I0827 11:18:18.350643     981 group_manager.go:466] group_member_remove: subscribe 4
+I0827 11:18:18.350647     981 group_manager.go:466] group_upgrade: subscribe 5
+I0827 11:18:18.350651     981 group_manager.go:466] group_member_mute: subscribe 6
+I0827 11:18:18.350655     981 group_manager.go:466] ping_1566875898hkvs: subscribe 7
+I0827 11:18:45.892898     981 route_server.go:125] new client:127.0.0.1:49620
+I0827 11:18:45.942211     981 protocol.go:95] sock read error:EOF
+I0827 11:18:45.942279     981 client.go:251] client socket closed

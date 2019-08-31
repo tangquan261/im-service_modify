@@ -1,0 +1,38 @@
+Log file created at: 2019/08/27 11:18:53
+Running on machine: rddeMacBook-Pro
+Binary: Built with gc go1.12.9 for darwin/amd64
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+F0827 11:18:53.900022    1057 storage_file.go:137] open file:open /tmp/im/message_0: no such file or directory
+goroutine 1 [running]:
+github.com/golang/glog.stacks(0xc0000bc001, 0xc000290000, 0x49e, 0x2710)
+	/Users/rd/gowork/src/github.com/golang/glog/glog.go:769 +0xb1
+github.com/golang/glog.(*loggingT).output(0x1795bc0, 0xc000000003, 0xc000174000, 0x17518f4, 0xf, 0x89, 0x0)
+	/Users/rd/gowork/src/github.com/golang/glog/glog.go:723 +0x178
+github.com/golang/glog.(*loggingT).printDepth(0x1795bc0, 0x3, 0x1, 0xc00010fbd0, 0x2, 0x2)
+	/Users/rd/gowork/src/github.com/golang/glog/glog.go:646 +0x12b
+github.com/golang/glog.(*loggingT).print(...)
+	/Users/rd/gowork/src/github.com/golang/glog/glog.go:637
+github.com/golang/glog.Fatal(...)
+	/Users/rd/gowork/src/github.com/golang/glog/glog.go:1128
+main.(*StorageFile).openWriteFile(0xc0000f0050, 0x0)
+	/Users/rd/gowork/src/github.com/GoBelieveIO/im_service/ims/storage_file.go:137 +0x263
+main.NewStorageFile(0xc00015c1bc, 0x7, 0x113f55e)
+	/Users/rd/gowork/src/github.com/GoBelieveIO/im_service/ims/storage_file.go:89 +0x24f
+main.NewStorage(0xc00015c1bc, 0x7, 0x144caad)
+	/Users/rd/gowork/src/github.com/GoBelieveIO/im_service/ims/storage.go:34 +0x4d
+main.main()
+	/Users/rd/gowork/src/github.com/GoBelieveIO/im_service/ims/storage_server.go:224 +0x601
+
+goroutine 34 [chan receive]:
+github.com/golang/glog.(*loggingT).flushDaemon(0x1795bc0)
+	/Users/rd/gowork/src/github.com/golang/glog/glog.go:882 +0x8b
+created by github.com/golang/glog.init.0
+	/Users/rd/gowork/src/github.com/golang/glog/glog.go:410 +0x272
+
+goroutine 4 [syscall]:
+os/signal.signal_recv(0x0)
+	/usr/local/Cellar/go/1.12.9/libexec/src/runtime/sigqueue.go:139 +0x9f
+os/signal.loop()
+	/usr/local/Cellar/go/1.12.9/libexec/src/os/signal/signal_unix.go:23 +0x22
+created by os/signal.init.0
+	/usr/local/Cellar/go/1.12.9/libexec/src/os/signal/signal_unix.go:29 +0x41

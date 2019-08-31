@@ -1,0 +1,4 @@
+Log file created at: 2019/08/26 21:56:16
+Running on machine: rddeMacBook-Pro
+Binary: Built with gc go1.12.9 for darwin/amd64
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg

@@ -1,0 +1,126 @@
+Log file created at: 2019/08/27 11:18:45
+Running on machine: rddeMacBook-Pro
+Binary: Built with gc go1.12.9 for darwin/amd64
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0827 11:18:45.890772    1056 im.go:497] port:23000
+I0827 11:18:45.891110    1056 im.go:499] redis address:127.0.0.1:6379 password: db:0
+I0827 11:18:45.891258    1056 im.go:502] storage addresses:[127.0.0.1:13333]
+I0827 11:18:45.891272    1056 im.go:503] route addressed:[127.0.0.1:4444]
+I0827 11:18:45.891276    1056 im.go:504] group route addressed:[]
+I0827 11:18:45.891279    1056 im.go:505] kefu appid:0
+I0827 11:18:45.891283    1056 im.go:506] pending root:/tmp/pending
+I0827 11:18:45.891286    1056 im.go:508] socket io address::13890 tls_address::14890 cert file: key file:
+I0827 11:18:45.891293    1056 im.go:510] ws address::13891 wss address::14891
+I0827 11:18:45.891297    1056 im.go:511] group deliver count:4
+I0827 11:18:45.891301    1056 im.go:512] sync self:false
+I0827 11:18:45.893130    1056 channel.go:360] channel connected
+I0827 11:18:45.893151    1056 group_manager.go:318] reload group...
+I0827 11:18:45.894741    1056 group_manager.go:388] group action id:0
+F0827 11:18:45.894808    1056 group_message_deliver.go:59] mkdir err:mkdir /tmp/pending/q0: no such file or directory
+goroutine 1 [running]:
+github.com/golang/glog.stacks(0xc000010001, 0xc000410000, 0x392, 0x2710)
+	/Users/rd/gowork/src/github.com/golang/glog/glog.go:769 +0xb1
+github.com/golang/glog.(*loggingT).output(0x192da20, 0xc000000003, 0xc000118c40, 0x18e3d3a, 0x18, 0x3b, 0x0)
+	/Users/rd/gowork/src/github.com/golang/glog/glog.go:723 +0x178
+github.com/golang/glog.(*loggingT).printDepth(0x192da20, 0x3, 0x1, 0xc0000dda30, 0x2, 0x2)
+	/Users/rd/gowork/src/github.com/golang/glog/glog.go:646 +0x12b
+github.com/golang/glog.(*loggingT).print(...)
+	/Users/rd/gowork/src/github.com/golang/glog/glog.go:637
+github.com/golang/glog.Fatal(...)
+	/Users/rd/gowork/src/github.com/golang/glog/glog.go:1128
+main.NewGroupMessageDeliver(0xc0000ae050, 0xf, 0x2)
+	/Users/rd/gowork/src/github.com/GoBelieveIO/im_service/im/group_message_deliver.go:59 +0x28f
+main.main()
+	/Users/rd/gowork/src/github.com/GoBelieveIO/im_service/im/im.go:590 +0x1365
+
+goroutine 4 [chan receive]:
+github.com/golang/glog.(*loggingT).flushDaemon(0x192da20)
+	/Users/rd/gowork/src/github.com/golang/glog/glog.go:882 +0x8b
+created by github.com/golang/glog.init.0
+	/Users/rd/gowork/src/github.com/golang/glog/glog.go:410 +0x272
+
+goroutine 5 [select]:
+github.com/valyala/gorpc.clientHandler(0xc000190000)
+	/Users/rd/gowork/src/github.com/valyala/gorpc/client.go:665 +0x286
+created by github.com/valyala/gorpc.(*Client).Start
+	/Users/rd/gowork/src/github.com/valyala/gorpc/client.go:157 +0x158
+
+goroutine 6 [select]:
+github.com/valyala/gorpc.clientHandler(0xc000190000)
+	/Users/rd/gowork/src/github.com/valyala/gorpc/client.go:665 +0x286
+created by github.com/valyala/gorpc.(*Client).Start
+	/Users/rd/gowork/src/github.com/valyala/gorpc/client.go:157 +0x158
+
+goroutine 7 [select]:
+github.com/valyala/gorpc.clientHandler(0xc000190000)
+	/Users/rd/gowork/src/github.com/valyala/gorpc/client.go:665 +0x286
+created by github.com/valyala/gorpc.(*Client).Start
+	/Users/rd/gowork/src/github.com/valyala/gorpc/client.go:157 +0x158
+
+goroutine 8 [select]:
+github.com/valyala/gorpc.clientHandler(0xc000190000)
+	/Users/rd/gowork/src/github.com/valyala/gorpc/client.go:665 +0x286
+created by github.com/valyala/gorpc.(*Client).Start
+	/Users/rd/gowork/src/github.com/valyala/gorpc/client.go:157 +0x158
+
+goroutine 9 [select]:
+main.(*Channel).RunOnce(0xc00002fd80, 0xc0000b4010)
+	/Users/rd/gowork/src/github.com/GoBelieveIO/im_service/im/channel.go:327 +0x1c1
+main.(*Channel).Run(0xc00002fd80)
+	/Users/rd/gowork/src/github.com/GoBelieveIO/im_service/im/channel.go:362 +0x2e2
+created by main.(*Channel).Start
+	/Users/rd/gowork/src/github.com/GoBelieveIO/im_service/im/channel.go:367 +0x3f
+
+goroutine 21 [IO wait]:
+internal/poll.runtime_pollWait(0x5431ea8, 0x72, 0xffffffffffffffff)
+	/usr/local/Cellar/go/1.12.9/libexec/src/runtime/netpoll.go:182 +0x56
+internal/poll.(*pollDesc).wait(0xc00028a098, 0x72, 0x0, 0xc, 0xffffffffffffffff)
+	/usr/local/Cellar/go/1.12.9/libexec/src/internal/poll/fd_poll_runtime.go:87 +0x9b
+internal/poll.(*pollDesc).waitRead(...)
+	/usr/local/Cellar/go/1.12.9/libexec/src/internal/poll/fd_poll_runtime.go:92
+internal/poll.(*FD).Read(0xc00028a080, 0xc0000ae020, 0xc, 0xc, 0x0, 0x0, 0x0)
+	/usr/local/Cellar/go/1.12.9/libexec/src/internal/poll/fd_unix.go:169 +0x1f2
+net.(*netFD).Read(0xc00028a080, 0xc0000ae020, 0xc, 0xc, 0x0, 0xc, 0xc0000ae020)
+	/usr/local/Cellar/go/1.12.9/libexec/src/net/fd_unix.go:202 +0x4f
+net.(*conn).Read(0xc0000b4010, 0xc0000ae020, 0xc, 0xc, 0x0, 0x0, 0x0)
+	/usr/local/Cellar/go/1.12.9/libexec/src/net/net.go:177 +0x69
+io.ReadAtLeast(0x15d57e0, 0xc0000b4010, 0xc0000ae020, 0xc, 0xc, 0xc, 0x0, 0x0, 0x0)
+	/usr/local/Cellar/go/1.12.9/libexec/src/io/io.go:310 +0x88
+io.ReadFull(...)
+	/usr/local/Cellar/go/1.12.9/libexec/src/io/io.go:329
+main.ReceiveLimitMessage(0x15d57e0, 0xc0000b4010, 0x8000, 0x0, 0x0)
+	/Users/rd/gowork/src/github.com/GoBelieveIO/im_service/im/protocol.go:93 +0xa0
+main.ReceiveMessage(...)
+	/Users/rd/gowork/src/github.com/GoBelieveIO/im_service/im/protocol.go:134
+main.(*Channel).RunOnce.func1(0xc0000b4010, 0xc000092120, 0xc00002fd80)
+	/Users/rd/gowork/src/github.com/GoBelieveIO/im_service/im/channel.go:299 +0x50
+created by main.(*Channel).RunOnce
+	/Users/rd/gowork/src/github.com/GoBelieveIO/im_service/im/channel.go:297 +0x116
+
+goroutine 22 [semacquire]:
+sync.runtime_SemacquireMutex(0x192da3c, 0x1070200)
+	/usr/local/Cellar/go/1.12.9/libexec/src/runtime/sema.go:71 +0x3d
+sync.(*Mutex).Lock(0x192da38)
+	/usr/local/Cellar/go/1.12.9/libexec/src/sync/mutex.go:134 +0x109
+github.com/golang/glog.(*loggingT).output(0x192da20, 0xc000000000, 0xc00041c000, 0x18e3fc3, 0x10, 0x1d2, 0x0)
+	/Users/rd/gowork/src/github.com/golang/glog/glog.go:672 +0x4e
+github.com/golang/glog.(*loggingT).printf(0x192da20, 0xc000000000, 0x153078f, 0xa, 0xc0000d9f00, 0x3, 0x3)
+	/Users/rd/gowork/src/github.com/golang/glog/glog.go:655 +0x14e
+github.com/golang/glog.Infof(...)
+	/Users/rd/gowork/src/github.com/golang/glog/glog.go:1073
+main.(*GroupManager).RunOnce(0xc000021cb0, 0x0)
+	/Users/rd/gowork/src/github.com/GoBelieveIO/im_service/im/group_manager.go:466 +0xb83
+main.(*GroupManager).Run(0xc000021cb0)
+	/Users/rd/gowork/src/github.com/GoBelieveIO/im_service/im/group_manager.go:477 +0x51
+created by main.(*GroupManager).Start
+	/Users/rd/gowork/src/github.com/GoBelieveIO/im_service/im/group_manager.go:510 +0x4d
+
+goroutine 23 [sleep]:
+runtime.goparkunlock(...)
+	/usr/local/Cellar/go/1.12.9/libexec/src/runtime/proc.go:307
+time.Sleep(0x438558d400)
+	/usr/local/Cellar/go/1.12.9/libexec/src/runtime/time.go:105 +0x159
+main.(*GroupManager).PingLoop(0xc000021cb0)
+	/Users/rd/gowork/src/github.com/GoBelieveIO/im_service/im/group_manager.go:504 +0x3e
+created by main.(*GroupManager).Start
+	/Users/rd/gowork/src/github.com/GoBelieveIO/im_service/im/group_manager.go:511 +0x6f
