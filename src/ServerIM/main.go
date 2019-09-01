@@ -34,6 +34,7 @@ import (
 	"ServerIM/DB"
 	"ServerIM/config"
 	"ServerIM/model"
+	"ServerIM/pkg/ServerTree"
 	"ServerIM/server"
 
 	log "github.com/golang/glog"
@@ -60,6 +61,9 @@ func main() {
 	}
 
 	DB.InitRedis()
+	DB.ConfigDB()
+	ServerTree.InitLoadServerIM()
+
 	server.ListenRPCClient()
 
 	CommonModel.CreateAndStartGroup(DB.Redis_pool, config.Config)
