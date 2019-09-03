@@ -35,18 +35,3 @@ func NewRedisPool(server, password string, db int) *redis.Pool {
 		},
 	}
 }
-
-func LoadMessage(msg_id int64) *MessageModel {
-
-	var ret MessageModel
-
-	DBtemp := DBMysql.Model(MessageModel{}).Where(&ret)
-
-	if DBtemp.Error != nil {
-		return nil
-	}
-	if DBtemp.RecordNotFound() {
-		return nil
-	}
-	return &ret
-}

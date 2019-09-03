@@ -50,6 +50,7 @@ func SyncGroupMessage(addr string, sync_key *model.SyncGroupHistory) *model.Grou
 }
 
 func SavePeerMessage(addr string, m *model.PeerMessage) (int64, error) {
+	//保存消息，请求总数数量++，私聊消息总数++
 	atomic.AddInt64(&model.Server_summary.Nrequests, 1)
 	atomic.AddInt64(&model.Server_summary.Peer_message_count, 1)
 	msg := &CommonModel.Message{Cmd: int(m.Cmd), Version: model.DEFAULT_VERSION}
