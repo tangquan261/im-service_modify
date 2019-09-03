@@ -100,15 +100,17 @@ func (client *Client) Read() {
 }
 
 func (client *Client) RemoveClient() {
-	route := App_route.FindRoute(client.appid).(*Route)
+
+	route := App_route.FindRoute(client.appid)
 	if route == nil {
 		log.Warning("can't find app route")
 		return
 	}
-	route.RemoveClient(client)
+
+	route.(*Route).RemoveClient(client)
 
 	if client.room_id > 0 {
-		route.RemoveRoomClient(client.room_id, client)
+		route.(*Route).RemoveRoomClient(client.room_id, client)
 	}
 }
 
@@ -152,7 +154,7 @@ func (client *Client) AuthToken(token string) (int64, int64, int, bool, error) {
 	if err != nil {
 		return 0, 0, 0, false, err
 	}
-
+	fmt.Println(appid, uid, forbidden, notification_on)
 	return appid, uid, forbidden, notification_on, nil
 }
 

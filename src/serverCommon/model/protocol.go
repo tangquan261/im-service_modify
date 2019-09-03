@@ -19,7 +19,10 @@
 
 package model
 
-import "io"
+import (
+	"fmt"
+	"io"
+)
 import "bytes"
 import "encoding/binary"
 import log "github.com/golang/glog"
@@ -131,6 +134,7 @@ func ReceiveLimitMessage(conn io.Reader, limit_size int, external bool) *Message
 		return nil
 	}
 
+	fmt.Println("cmd", cmd, "seq:", seq, "version:", version, "flag:", flag)
 	message := new(Message)
 	message.Cmd = cmd
 	message.Seq = seq

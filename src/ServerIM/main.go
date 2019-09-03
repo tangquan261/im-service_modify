@@ -44,6 +44,7 @@ func init() {
 
 	//路由管理
 	model.App_route = CommonModel.NewAppRoute()
+	model.App_route.FnCreate = model.NewRoute
 	//统计消息
 	model.NewServerSummary()
 }
@@ -65,7 +66,7 @@ func main() {
 	ServerTree.InitLoadServerIM()
 
 	server.ListenRPCClient()
-
+	model.InitConnection()
 	CommonModel.CreateAndStartGroup(DB.Redis_pool, config.Config)
 
 	model.Group_message_delivers = make([]*model.GroupMessageDeliver, config.Config.Group_deliver_count)

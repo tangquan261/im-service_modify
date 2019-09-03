@@ -9,7 +9,7 @@ import (
 var Config *IMconfig.Config
 
 func InitConfig() {
-	Config = IMconfig.Read_cfg("./im.cfg")
+	Config = IMconfig.Read_cfg("/Users/tq/gowork/src/ServerIM/im.cfg")
 	log.Infof("port:%d\n", Config.Port)
 
 	log.Infof("redis address:%s password:%s db:%d\n",
