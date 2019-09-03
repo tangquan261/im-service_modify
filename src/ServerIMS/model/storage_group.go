@@ -240,8 +240,8 @@ func (storage *GroupStorage) readGroupIndex() bool {
 		for i := 0; i < n/INDEX_SIZE; i++ {
 			id := GroupID{}
 			var msg_id int64
-			binary.Read(buffer, binary.BigEndian, &id.appid)
-			binary.Read(buffer, binary.BigEndian, &id.gid)
+			binary.Read(buffer, binary.BigEndian, &id.Appid)
+			binary.Read(buffer, binary.BigEndian, &id.Gid)
 			binary.Read(buffer, binary.BigEndian, &msg_id)
 
 			storage.message_index[id] = msg_id
@@ -286,8 +286,8 @@ func (storage *GroupStorage) saveGroupIndex(message_index map[GroupID]int64) {
 	buffer := new(bytes.Buffer)
 	index := 0
 	for id, value := range message_index {
-		binary.Write(buffer, binary.BigEndian, id.appid)
-		binary.Write(buffer, binary.BigEndian, id.gid)
+		binary.Write(buffer, binary.BigEndian, id.Appid)
+		binary.Write(buffer, binary.BigEndian, id.Gid)
 		binary.Write(buffer, binary.BigEndian, value)
 
 		index += 1

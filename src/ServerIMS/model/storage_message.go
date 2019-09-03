@@ -7,19 +7,41 @@ import (
 )
 
 func init() {
-	CommonModel.Message_creators[MSG_OFFLINE_V4] = func() CommonModel.IMessage { return new(OfflineMessage4) }
-	CommonModel.Message_creators[MSG_OFFLINE_V3] = func() CommonModel.IMessage { return new(OfflineMessage3) }
-	CommonModel.Message_creators[MSG_OFFLINE_V2] = func() CommonModel.IMessage { return new(OfflineMessage2) }
-	CommonModel.Message_creators[MSG_PENDING_GROUP_MESSAGE] = func() CommonModel.IMessage { return new(PendingGroupMessage) }
-	CommonModel.Message_creators[MSG_GROUP_IM_LIST] = func() CommonModel.IMessage { return new(GroupOfflineMessage) }
-	CommonModel.Message_creators[MSG_GROUP_ACK_IN] = func() CommonModel.IMessage { return new(CommonModel.IgnoreMessage) }
+	CommonModel.Message_creators[MSG_OFFLINE_V4] = func() CommonModel.IMessage {
+		return new(OfflineMessage4)
+	}
+	CommonModel.Message_creators[MSG_OFFLINE_V3] = func() CommonModel.IMessage {
+		return new(OfflineMessage3)
+	}
+	CommonModel.Message_creators[MSG_OFFLINE_V2] = func() CommonModel.IMessage {
+		return new(OfflineMessage2)
+	}
+	CommonModel.Message_creators[MSG_PENDING_GROUP_MESSAGE] = func() CommonModel.IMessage {
+		return new(PendingGroupMessage)
+	}
+	CommonModel.Message_creators[MSG_GROUP_IM_LIST] = func() CommonModel.IMessage {
+		return new(GroupOfflineMessage)
+	}
+	CommonModel.Message_creators[MSG_GROUP_ACK_IN] = func() CommonModel.IMessage {
+		return new(CommonModel.IgnoreMessage)
+	}
 
-	CommonModel.Message_creators[MSG_OFFLINE] = func() CommonModel.IMessage { return new(OfflineMessage1) }
-	CommonModel.Message_creators[MSG_ACK_IN] = func() CommonModel.IMessage { return new(CommonModel.IgnoreMessage) }
+	CommonModel.Message_creators[MSG_OFFLINE] = func() CommonModel.IMessage {
+		return new(OfflineMessage1)
+	}
+	CommonModel.Message_creators[MSG_ACK_IN] = func() CommonModel.IMessage {
+		return new(CommonModel.IgnoreMessage)
+	}
 
-	CommonModel.Message_creators[MSG_STORAGE_SYNC_BEGIN] = func() CommonModel.IMessage { return new(SyncCursor) }
-	CommonModel.Message_creators[MSG_STORAGE_SYNC_MESSAGE] = func() CommonModel.IMessage { return new(EMessage) }
-	CommonModel.Message_creators[MSG_STORAGE_SYNC_MESSAGE_BATCH] = func() CommonModel.IMessage { return new(MessageBatch) }
+	CommonModel.Message_creators[MSG_STORAGE_SYNC_BEGIN] = func() CommonModel.IMessage {
+		return new(SyncCursor)
+	}
+	CommonModel.Message_creators[MSG_STORAGE_SYNC_MESSAGE] = func() CommonModel.IMessage {
+		return new(EMessage)
+	}
+	CommonModel.Message_creators[MSG_STORAGE_SYNC_MESSAGE_BATCH] = func() CommonModel.IMessage {
+		return new(MessageBatch)
+	}
 
 	CommonModel.Message_descriptions[MSG_STORAGE_SYNC_BEGIN] = "MSG_STORAGE_SYNC_BEGIN"
 	CommonModel.Message_descriptions[MSG_STORAGE_SYNC_MESSAGE] = "MSG_STORAGE_SYNC_MESSAGE"

@@ -51,8 +51,8 @@ func (storage *PeerStorage) setPeerIndex(appid int64, receiver int64, ui *UserIn
 	id := UserID{appid, receiver}
 	storage.message_index[id] = ui
 
-	if ui.last_id > storage.last_id {
-		storage.last_id = ui.last_id
+	if ui.Last_id > storage.last_id {
+		storage.last_id = ui.Last_id
 	}
 
 }
@@ -61,7 +61,7 @@ func (storage *PeerStorage) setPeerIndex(appid int64, receiver int64, ui *UserIn
 func (storage *PeerStorage) getLastMessageID(appid int64, receiver int64) (int64, int64) {
 	id := UserID{appid, receiver}
 	if ui, ok := storage.message_index[id]; ok {
-		return ui.last_id, ui.last_peer_id
+		return ui.Last_id, ui.Last_peer_id
 	}
 	return 0, 0
 }
@@ -160,7 +160,7 @@ func (storage *PeerStorage) LoadHistoryMessagesV3(appid int64, receiver int64, s
 
 	var last_batch_id int64
 	if msg_index != nil {
-		last_batch_id = msg_index.last_batch_id
+		last_batch_id = msg_index.Last_batch_id
 	}
 
 	hard_batch_count := hard_limit / BATCH_SIZE
@@ -216,7 +216,7 @@ func (storage *PeerStorage) LoadHistoryMessagesV3(appid int64, receiver int64, s
 		index := len(batch_ids) - batch_count
 		last_id = batch_ids[index]
 	} else if msg_index != nil {
-		last_id = msg_index.last_id
+		last_id = msg_index.Last_id
 	}
 
 	messages := make([]*EMessage, 0, 10)
@@ -281,14 +281,14 @@ func (storage *PeerStorage) LoadHistoryMessagesV3(appid int64, receiver int64, s
 
 	var hasMore bool
 	if msg_index != nil && last_offline_msgid > 0 &&
-		last_offline_msgid < msg_index.last_id {
+		last_offline_msgid < msg_index.Last_id {
 		hasMore = true
 	}
 
 	log.Infof("appid:%d uid:%d sync msgid:%d history message loaded:%d %d, last_id:%d, %d last batch id:%d last seq id:%d has more:%t only peer:%t",
 		appid, receiver, sync_msgid, len(messages), last_msgid,
-		last_offline_msgid, msg_index.last_id, msg_index.last_batch_id,
-		msg_index.last_seq_id, hasMore, is_peer)
+		last_offline_msgid, msg_index.Last_id, msg_index.Last_batch_id,
+		msg_index.Last_seq_id, hasMore, is_peer)
 
 	return messages, last_msgid, hasMore
 }
@@ -373,7 +373,7 @@ func (storage *PeerStorage) GetNewCount(appid int64, uid int64, last_received_id
 	defer storage.mutex.Unlock()
 
 	user_index := storage.getPeerIndex(appid, uid)
-	last_seq_id := user_index.last_seq_id
+	last_seq_id := user_index.Last_seq_id
 
 	if last_received_id == 0 {
 		return int(last_seq_id)
@@ -492,10 +492,10 @@ func (storage *PeerStorage) createPeerIndex() {
 
 				index := storage.getPeerIndex(off.Appid, off.Receiver)
 				if (msg.Flag & CommonModel.MESSAGE_FLAG_GROUP) != 0 {
-					last_peer_id = index.last_peer_id
+					last_peer_id = index.Last_peer_id
 				}
-				last_batch_id := index.last_batch_id
-				last_seq_id := index.last_seq_id + 1
+				last_batch_id := index.Last_batch_id
+				last_seq_id := index.Last_seq_id + 1
 				if last_seq_id%BATCH_SIZE == 0 {
 					last_batch_id = msgid
 				}
@@ -569,10 +569,10 @@ func (storage *PeerStorage) repairPeerIndex() {
 
 				index := storage.getPeerIndex(off.Appid, off.Receiver)
 				if (msg.Flag & CommonModel.MESSAGE_FLAG_GROUP) != 0 {
-					last_peer_id = index.last_peer_id
+					last_peer_id = index.Last_peer_id
 				}
-				last_batch_id := index.last_batch_id
-				last_seq_id := index.last_seq_id + 1
+				last_batch_id := index.Last_batch_id
+				last_seq_id := index.Last_seq_id + 1
 				if last_seq_id%BATCH_SIZE == 0 {
 					last_batch_id = msgid
 				}
@@ -616,14 +616,14 @@ func (storage *PeerStorage) readPeerIndex() bool {
 			var peer_msgid int64
 			var batch_id int64
 			var seq_id int64
-			binary.Read(buffer, binary.BigEndian, &id.appid)
-			binary.Read(buffer, binary.BigEndian, &id.uid)
+			binary.Read(buffer, binary.BigEndian, &id.Appid)
+			binary.Read(buffer, binary.BigEndian, &id.Uid)
 			binary.Read(buffer, binary.BigEndian, &msg_id)
 			binary.Read(buffer, binary.BigEndian, &peer_msgid)
 			binary.Read(buffer, binary.BigEndian, &batch_id)
 			binary.Read(buffer, binary.BigEndian, &seq_id)
 			ui := &UserIndex{msg_id, peer_msgid, batch_id, seq_id}
-			storage.setPeerIndex(id.appid, id.uid, ui)
+			storage.setPeerIndex(id.Appid, id.Uid, ui)
 		}
 	}
 	return true
@@ -662,12 +662,12 @@ func (storage *PeerStorage) savePeerIndex(message_index map[UserID]*UserIndex) {
 	buffer := new(bytes.Buffer)
 	index := 0
 	for id, value := range message_index {
-		binary.Write(buffer, binary.BigEndian, id.appid)
-		binary.Write(buffer, binary.BigEndian, id.uid)
-		binary.Write(buffer, binary.BigEndian, value.last_id)
-		binary.Write(buffer, binary.BigEndian, value.last_peer_id)
-		binary.Write(buffer, binary.BigEndian, value.last_batch_id)
-		binary.Write(buffer, binary.BigEndian, value.last_seq_id)
+		binary.Write(buffer, binary.BigEndian, id.Appid)
+		binary.Write(buffer, binary.BigEndian, id.Uid)
+		binary.Write(buffer, binary.BigEndian, value.Last_id)
+		binary.Write(buffer, binary.BigEndian, value.Last_peer_id)
+		binary.Write(buffer, binary.BigEndian, value.Last_batch_id)
+		binary.Write(buffer, binary.BigEndian, value.Last_seq_id)
 		index += 1
 		//batch write to file
 		if index%1000 == 0 {
@@ -726,10 +726,10 @@ func (storage *PeerStorage) execMessage(msg *CommonModel.Message, msgid int64) {
 
 		index := storage.getPeerIndex(off.Appid, off.Receiver)
 		if (msg.Flag & CommonModel.MESSAGE_FLAG_GROUP) != 0 {
-			last_peer_id = index.last_peer_id
+			last_peer_id = index.Last_peer_id
 		}
-		last_batch_id := index.last_batch_id
-		last_seq_id := index.last_seq_id + 1
+		last_batch_id := index.Last_batch_id
+		last_seq_id := index.Last_seq_id + 1
 		if last_seq_id%BATCH_SIZE == 0 {
 			last_batch_id = msgid
 		}
@@ -745,10 +745,10 @@ func (storage *PeerStorage) SavePeerMessage(appid int64, uid int64, device_id in
 	msgid := storage.saveMessage(msg)
 
 	user_index := storage.getPeerIndex(appid, uid)
-	last_id := user_index.last_id
-	last_peer_id := user_index.last_peer_id
-	last_batch_id := user_index.last_batch_id
-	last_seq_id := user_index.last_seq_id
+	last_id := user_index.Last_id
+	last_peer_id := user_index.Last_peer_id
+	last_batch_id := user_index.Last_batch_id
+	last_seq_id := user_index.Last_seq_id
 
 	off := &OfflineMessage4{}
 	off.Appid = appid

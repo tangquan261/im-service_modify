@@ -6,6 +6,7 @@ import (
 	"time"
 
 	CommonModel "ServerCommon/model"
+	CommonUtil "ServerCommon/pkg/util"
 	"ServerIMR/DB"
 	"ServerIMR/config"
 	"ServerIMR/server"
@@ -18,6 +19,7 @@ func main() {
 
 	config.InitConfig()
 
+	CommonUtil.InitMD5(1)
 	DB.InitRedis()
 
 	//通过redis监听redis的message进行群聊group的内存级管理

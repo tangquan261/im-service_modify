@@ -10,20 +10,20 @@ import (
 )
 
 type UserID struct {
-	appid int64
-	uid   int64
+	Appid int64
+	Uid   int64
 }
 
 type UserIndex struct {
-	last_id       int64
-	last_peer_id  int64
-	last_batch_id int64
-	last_seq_id   int64
+	Last_id       int64
+	Last_peer_id  int64
+	Last_batch_id int64
+	Last_seq_id   int64
 }
 
 type GroupID struct {
-	appid int64
-	gid   int64
+	Appid int64
+	Gid   int64
 }
 
 func onFileEvicted(key lru.Key, value interface{}) {

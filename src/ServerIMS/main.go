@@ -20,7 +20,7 @@
 package main
 
 import (
-	"ServerCommon/pkg/util"
+	CommonUtil "ServerCommon/pkg/util"
 	"ServerIMS/config"
 	"ServerIMS/model"
 	"ServerIMS/server"
@@ -79,7 +79,7 @@ func main() {
 	//配置信息
 	config.InitConfig()
 
-	util.InitMD5(1)
+	CommonUtil.InitMD5(1)
 
 	//本地存储管理
 	model.InitStorage()
