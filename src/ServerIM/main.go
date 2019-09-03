@@ -19,15 +19,6 @@
 
 package main
 
-//import "net"
-import "fmt"
-import "time"
-import "runtime"
-import "math/rand"
-
-//import "net/http"
-import "path"
-
 import (
 	CommonModel "ServerCommon/model"
 	CommonFilter "ServerCommon/pkg/filter"
@@ -35,12 +26,16 @@ import (
 	"ServerIM/config"
 	"ServerIM/model"
 	"ServerIM/server"
+	"fmt"
+	"math/rand"
+	"path"
+	"runtime"
+	"time"
 
 	log "github.com/golang/glog"
 )
 
 func init() {
-
 	//路由管理
 	model.App_route = CommonModel.NewAppRoute()
 	//统计消息
