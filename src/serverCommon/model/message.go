@@ -268,12 +268,12 @@ type AuthenticationToken struct {
 
 func (auth *AuthenticationToken) ToData() []byte {
 	var l int8
-
+	var tokenlen int16
 	buffer := new(bytes.Buffer)
 	binary.Write(buffer, binary.BigEndian, auth.Platform_id)
 
-	l = int8(len(auth.Token))
-	binary.Write(buffer, binary.BigEndian, l)
+	tokenlen = int16(len(auth.Token))
+	binary.Write(buffer, binary.BigEndian, tokenlen)
 	buffer.Write([]byte(auth.Token))
 
 	l = int8(len(auth.Device_id))
@@ -285,26 +285,29 @@ func (auth *AuthenticationToken) ToData() []byte {
 }
 
 func (auth *AuthenticationToken) FromData(buff []byte) bool {
-	var l int8
+	var ltoken int16
 	if len(buff) <= 3 {
 		return false
 	}
 	auth.Platform_id = int8(buff[0])
-
+	fmt.Println(auth.Platform_id)
 	buffer := bytes.NewBuffer(buff[1:])
 
-	binary.Read(buffer, binary.BigEndian, &l)
-	if int(l) > buffer.Len() || int(l) < 0 {
+	binary.Read(buffer, binary.BigEndian, &ltoken)
+
+	if int(ltoken) > buffer.Len() || int(ltoken) < 0 {
 		return false
 	}
-	token := make([]byte, l)
+
+	token := make([]byte, ltoken)
 	buffer.Read(token)
 
-	binary.Read(buffer, binary.BigEndian, &l)
-	if int(l) > buffer.Len() || int(l) < 0 {
+	var device_idl int8
+	binary.Read(buffer, binary.BigEndian, &device_idl)
+	if int(device_idl) > buffer.Len() || int(device_idl) < 0 {
 		return false
 	}
-	device_id := make([]byte, l)
+	device_id := make([]byte, device_idl)
 	buffer.Read(device_id)
 
 	auth.Token = string(token)

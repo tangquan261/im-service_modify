@@ -17,7 +17,7 @@ type Route struct {
 	room_clients map[int64]ClientSet
 }
 
-func NewRoute(appid int64) *Route {
+func NewRoute(appid int64) CommonModel.RouteBase {
 	route := new(Route)
 	route.appid = appid
 	route.clients = make(map[int64]ClientSet)

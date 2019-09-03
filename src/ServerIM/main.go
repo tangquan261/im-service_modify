@@ -25,6 +25,7 @@ import (
 	"ServerIM/DB"
 	"ServerIM/config"
 	"ServerIM/model"
+	"ServerIM/pkg/ServerTree"
 	"ServerIM/server"
 	"fmt"
 	"math/rand"
@@ -38,6 +39,7 @@ import (
 func init() {
 	//路由管理
 	model.App_route = CommonModel.NewAppRoute()
+	model.App_route.FnCreate = model.NewRoute
 	//统计消息
 	model.NewServerSummary()
 }
@@ -55,8 +57,11 @@ func main() {
 	}
 
 	DB.InitRedis()
-	server.ListenRPCClient()
+	DB.ConfigDB()
+	ServerTree.InitLoadServerIM()
 
+	server.ListenRPCClient()
+	model.InitConnection()
 	CommonModel.CreateAndStartGroup(DB.Redis_pool, config.Config)
 
 	model.Group_message_delivers = make([]*model.GroupMessageDeliver, config.Config.Group_deliver_count)
